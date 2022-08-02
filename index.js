@@ -77,33 +77,33 @@ function donate() {
       });
 }
 
-const html5QrCode = new Html5Qrcode(/* element id */ "reader");
+const html5QrCode = new Html5Qrcode("reader");
 // File based scanning
-const fileinput = document.getElementById('qr-input-file');
-fileinput.addEventListener('change', e => {
-  if (e.target.files.length == 0) {
-    // No file selected, ignore 
-    return;
-  }
+// const fileinput = document.getElementById('qr-input-file');
+// fileinput.addEventListener('change', e => {
+//   if (e.target.files.length == 0) {
+//     // No file selected, ignore 
+//     return;
+//   }
   
-  const imageFile = e.target.files[0];
-  // Scan QR Code
-  html5QrCode.scanFile(imageFile, true)
-  .then(decodedText => {
-    // success, use decodedText
-    let address
-    if(decodedText.indexOf(':') > 0) {
-      address = decodedText.split(":")[1]
-    } else {
-      address = decodedText
-    }
-    document.getElementById("address").value = address
-  })
-  .catch(err => {
-    // failure, handle it.
-    console.log(`Error scanning file. Reason: ${err}`)
-  });
-});
+//   const imageFile = e.target.files[0];
+//   // Scan QR Code
+//   html5QrCode.scanFile(imageFile, true)
+//   .then(decodedText => {
+//     // success, use decodedText
+//     let address
+//     if(decodedText.indexOf(':') > 0) {
+//       address = decodedText.split(":")[1]
+//     } else {
+//       address = decodedText
+//     }
+//     document.getElementById("address").value = address
+//   })
+//   .catch(err => {
+//     // failure, handle it.
+//     console.log(`Error scanning file. Reason: ${err}`)
+//   });
+// });
 
 function showWarning() {
   var warning = document.getElementById("warning")
@@ -118,4 +118,29 @@ function showWarning() {
   } else {
     warning.style.display = 'block'
   }
+}
+
+function onScanSuccess(decodedText, decodedResult) {
+  // Handle on success condition with the decoded text or result.
+  let address
+  if(decodedText.indexOf(':') > 0) {
+    address = decodedText.split(":")[1]
+  } else {
+    address = decodedText
+  }
+  document.getElementById("address").value = address
+  console.log(`Scan result: ${decodedText}`, decodedResult);
+  html5QrcodeScanner.clear()
+}
+
+function onScanError(errorMessage) {
+  // handle on error condition, with error message
+}
+
+var html5QrcodeScanner = new Html5QrcodeScanner(
+"reader", { fps: 10, qrbox: 250 });
+
+function startScan() {
+  alert("start scan")
+  html5QrcodeScanner.render(onScanSuccess, onScanError);
 }

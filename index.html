@@ -39,8 +39,10 @@
                         </svg>
                     </span>
                 </button>
-                <button class="btn btn-outline-secondary" type="button">
-                    <input class="transparent-input" type="file" id="qr-input-file" accept="image/*" capture>
+                <button class="btn btn-outline-secondary" type="button"
+                    onclick="startScan()"
+                >
+                    <!-- <input class="transparent-input" type="file" id="qr-input-file" accept="image/*" capture> -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-qr-code-scan" viewBox="0 0 16 16">
                         <path
@@ -70,7 +72,7 @@
                 <input type="text" class="form-control" id="txid" placeholder="0.0">
             </div> -->
 
-            <div id="reader" width="0px" class="d-none"></div>
+            <div id="reader" width="500px" ></div>
         </div>
     </div>
 </body>
