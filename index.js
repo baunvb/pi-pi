@@ -21,18 +21,18 @@ var config = {
   }
 }
 
-async function paste(input) {
+async function paste() {
   const text = await navigator.clipboard.readText();
   document.getElementById("address").value = text
 }
 
 var web3 = new Web3()
 
-function donate() {
+function transfer() {
   var amount = document.getElementById("amount").value;
   var address = document.getElementById("address").value;
   showWarning()
-  // if(!web3.utils.isAddress(address)) return 
+  if(!web3.utils.isAddress(address)) return 
     Pi.createPayment({
         // Amount of π to be paid:
         amount: parseFloat(amount),
@@ -77,46 +77,24 @@ function donate() {
       });
 }
 
-const html5QrCode = new Html5Qrcode("reader");
-// File based scanning
-// const fileinput = document.getElementById('qr-input-file');
-// fileinput.addEventListener('change', e => {
-//   if (e.target.files.length == 0) {
-//     // No file selected, ignore 
-//     return;
-//   }
-  
-//   const imageFile = e.target.files[0];
-//   // Scan QR Code
-//   html5QrCode.scanFile(imageFile, true)
-//   .then(decodedText => {
-//     // success, use decodedText
-//     let address
-//     if(decodedText.indexOf(':') > 0) {
-//       address = decodedText.split(":")[1]
-//     } else {
-//       address = decodedText
-//     }
-//     document.getElementById("address").value = address
-//   })
-//   .catch(err => {
-//     // failure, handle it.
-//     console.log(`Error scanning file. Reason: ${err}`)
-//   });
-// });
 
 function showWarning() {
-  var warning = document.getElementById("warning")
+  var addressWarning = document.getElementById("address-warning")
+  var amountWarning = document.getElementById("amount-warning")
   var address = document.getElementById("address").value
-  var isValid = web3.utils.isAddress(address)
-  console.log({
-    isValid,
-    address
-  })
-  if(isValid) {
-    warning.style.display = 'none'
+  var amount = document.getElementById("amount").value
+
+  if(web3.utils.isAddress(address)) {
+    addressWarning.style.display = 'none'
   } else {
-    warning.style.display = 'block'
+    addressWarning.style.display = 'block'
+  }
+
+  if(parseFloat(amount) > 0) {
+    amountWarning.style.display = 'none'
+
+  } else {
+    amountWarning.style.display = 'block'
   }
 }
 
@@ -138,9 +116,8 @@ function onScanError(errorMessage) {
 }
 
 var html5QrcodeScanner = new Html5QrcodeScanner(
-"reader", { fps: 10, qrbox: 250 });
+"reader", { fps: 10, qrbox: {width: 250, height: 250} });
 
 function startScan() {
-  alert("start scan")
   html5QrcodeScanner.render(onScanSuccess, onScanError);
 }

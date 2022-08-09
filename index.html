@@ -2,8 +2,20 @@
 <html lang="en" class="js">
 
 <head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="120x120" href="logo/apple-touch-icon.png">
+    <link rel="shortcut icon" href="/logo/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="logo/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="logo/favicon-16x16.png">
+    <link rel="manifest" href="logo/site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Web site created PiBrigde@2022" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+
+    <title>Pi Bridge</title>
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-    <script>Pi.init({ version: "2.0"})</script>
+    <script>Pi.init({ version: "2.0" })</script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
@@ -13,67 +25,81 @@
     <script src="scripts/html5-qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <link rel="stylesheet" href="index.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="header text-center">
-        <img src="image/compatible_opera.png" />
-    </div>
-    <div class="h-50 row main justify-content-center align-items-center">
-        <div class="content">
-            <div class="mb-3">
-                <label for="amount" class="form-label text-light">Transfer PI</label>
-                <input value="0.5" type="text" class="form-control" id="amount" placeholder="0.0">
-            </div>
-            <label for="address" class="form-label text-light">Address</label>
-            <div class="input-group">
-                <input type="text" class="form-control" id="address" placeholder="address" onchange="showWarning()">
-                <button class="btn btn-outline-secondary" type="button" onclick="paste()">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-clipboard" viewBox="0 0 16 16">
-                            <path
-                                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                            <path
-                                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                        </svg>
-                    </span>
-                </button>
-                <button class="btn btn-outline-secondary" type="button"
-                    onclick="startScan()"
-                >
-                    <!-- <input class="transparent-input" type="file" id="qr-input-file" accept="image/*" capture> -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-qr-code-scan" viewBox="0 0 16 16">
-                        <path
-                            d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0v-3Zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5ZM.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5Zm15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5ZM4 4h1v1H4V4Z" />
-                        <path d="M7 2H2v5h5V2ZM3 3h3v3H3V3Zm2 8H4v1h1v-1Z" />
-                        <path d="M7 9H2v5h5V9Zm-4 1h3v3H3v-3Zm8-6h1v1h-1V4Z" />
-                        <path
-                            d="M9 2h5v5H9V2Zm1 1v3h3V3h-3ZM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8H8Zm2 2H9V9h1v1Zm4 2h-1v1h-2v1h3v-2Zm-4 2v-1H8v1h2Z" />
-                        <path d="M12 9h2V8h-2v1Z" />
-                    </svg>
-                </button>
-            </div>
-
-            <span style="display: none;" id="warning" class="text-danger fs-6">The address format is wrong. Please
-                check the address length and character content and try again</span>
-
-            <div class="mb-3 d-grid btn-transfer">
-                <button onclick="donate()" type="button" class="btn btn-primary">Transfer</button>
-            </div>
-<!-- 
-            <div class="mb-3">
-                <label for="paymentId" class="form-label text-light">PaymentId</label>
-                <input  type="text" class="form-control" id="paymentId" placeholder="0.0">
-            </div>
-            <div class="mb-3">
-                <label for="txid" class="form-label text-light">Txid</label>
-                <input type="text" class="form-control" id="txid" placeholder="0.0">
-            </div> -->
-
-            <div id="reader" width="500px" ></div>
+        <div class="logo">
+            <img src="image/PiBridge_logo.png" />
+            <span>Pi Network Bridge</span>
         </div>
+        <div class="header-right">
+            <span>Documentation</span>
+        </div>
+    </div>
+    <div class="main justify-content-center align-items-center">
+        <div class="header-bridge">
+            <span>Bridge Pi to wPI</span>
+            <span>Pi bridge is be used to transfer Pi from Pi Network to wPi on Binance Smart Chain.</span>
+        </div>
+        <div class="content-swap">
+            <div class="swap-form">
+                <div class="input-pi">
+                    <label for="amount" class="swap-label">Transfer PI</label>
+                    <input value="0" type="text" class="form-input" id="amount" placeholder="0.0">
+                    <span style="display: none;" id="amount-warning" class="text-danger fs-6">Amount must be greater
+                        than 0</span>
+
+                </div>
+
+                <label for="address" class="swap-label">Address on Binance Smart Chain</label>
+                <div class="input-address">
+                    <input type="text" class="address-input" id="address" placeholder="0xAa213g...3UG"
+                        onchange="showWarning()">
+                    <button class="button-address" type="button" onclick="paste()">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-clipboard" viewBox="0 0 16 16">
+                                <path
+                                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                                <path
+                                    d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                            </svg>
+                        </span>
+                    </button>
+                    <button class="button-address" type="button" onclick="startScan()">
+                        <!-- <input class="transparent-input" type="file" id="qr-input-file" accept="image/*" capture> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-qr-code-scan" viewBox="0 0 16 16">
+                            <path
+                                d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0v-3Zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5ZM.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5Zm15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5ZM4 4h1v1H4V4Z" />
+                            <path d="M7 2H2v5h5V2ZM3 3h3v3H3V3Zm2 8H4v1h1v-1Z" />
+                            <path d="M7 9H2v5h5V9Zm-4 1h3v3H3v-3Zm8-6h1v1h-1V4Z" />
+                            <path
+                                d="M9 2h5v5H9V2Zm1 1v3h3V3h-3ZM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8H8Zm2 2H9V9h1v1Zm4 2h-1v1h-2v1h3v-2Zm-4 2v-1H8v1h2Z" />
+                            <path d="M12 9h2V8h-2v1Z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <span style="display: none;" id="address-warning" class="text-danger fs-6">The address format is wrong.
+                    Please
+                    check the address length and character content and try again</span>
+
+                <button onclick="transfer()" type="button" class="button-transfer">Swap PI to wPI</button>
+
+                <div id="reader" width="500px"></div>
+            </div>
+
+        </div>
+    </div>
+    <div class="footer">
+        <span>PiBridgeLab@2022</span>
+        <span>website: <a href="http://www.pibridge.io">https://pibridge.io</a></span>
     </div>
 </body>
 
